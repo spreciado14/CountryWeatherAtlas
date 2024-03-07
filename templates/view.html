@@ -1,0 +1,7 @@
+{% block title %}Members{% endblock %} {% block content %}
+<ul>
+  {% for user in values %}
+  <li><a>{{ user.username }}</a></li>
+  {% endfor %}
+</ul>
+{% endblock %}

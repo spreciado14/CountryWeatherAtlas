@@ -1,0 +1,6 @@
+python-dotenv
+google-auth-oauthlib
+google-auth
+flask-sqlalchemy
+Flask
+requests

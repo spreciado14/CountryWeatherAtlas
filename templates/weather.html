@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Weather</title>
+  </head>
+  <body>
+    <h3>The weather in {{ capital_city }} right now: {{ description }}</h3>
+    {% if icon_url %}
+    <img src="{{ icon_url }}" alt="Weather Icon" />
+    {% endif %}
+    <p>Temperature: {{ temperature }} °C (feels like {{ feels_like }} °C)</p>
+    <p>Wind: {{ wind_speed }} m/s</p>
+    <p>Humidity: {{ humidity }} %</p>
+  </body>
+</html>
