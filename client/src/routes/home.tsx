@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import './App.css'
+import '../App.css'
 
-function App() {
+function Home() {
   const [data, setData] = useState([])
   useEffect(() => {
     fetch('/api/users')
@@ -23,4 +23,4 @@ function App() {
   )
 }
 
-export default App
+export default Home
