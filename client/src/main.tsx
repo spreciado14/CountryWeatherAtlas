@@ -7,6 +7,7 @@ import ErrorPage from './error-page'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './routes/login'
 import CountryFlags from './routes/countries'
+import CountryFlag from './routes/country'
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
   {
     path: '/fullview',
     element: <CountryFlags />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/singleview',
+    element: <CountryFlag />,
     errorElement: <ErrorPage />,
   },
 ])
