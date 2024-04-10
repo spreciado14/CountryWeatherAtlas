@@ -24,7 +24,7 @@ const CountryFlags = () => {
             gap: '130px',
           }}>
           {countries.map((country, index) => (
-            <div key={index} style={{ display: 'flex', textAlign: 'left' }}>
+            <div key={index} style={{ display: 'flex', textAlign: 'initial' }}>
               <Link
                 to={`/country/${country.name.common}`} // Assuming you have a route to display country details
                 style={{

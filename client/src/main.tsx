@@ -9,6 +9,7 @@ import Login from './routes/login'
 import CountryFlags from './routes/countries'
 import CountryFlag from './routes/country'
 import NavbarComponent from './components/navbar'
+import CountryDetails from './routes/countrydetails'
 
 const router = createBrowserRouter([
   {
@@ -22,13 +23,18 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: '/fullview',
+    path: '/full',
     element: <CountryFlags />,
     errorElement: <ErrorPage />,
   },
   {
-    path: '/singleview',
+    path: '/single',
     element: <CountryFlag />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/country/:country',
+    element: <CountryDetails />,
     errorElement: <ErrorPage />,
   },
 ])
