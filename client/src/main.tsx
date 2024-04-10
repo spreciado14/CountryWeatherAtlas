@@ -8,6 +8,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './routes/login'
 import CountryFlags from './routes/countries'
 import CountryFlag from './routes/country'
+import NavbarComponent from './components/navbar'
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,11 @@ const router = createBrowserRouter([
   {
     path: '/singleview',
     element: <CountryFlag />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: '/navbar',
+    element: <NavbarComponent />,
     errorElement: <ErrorPage />,
   },
 ])
