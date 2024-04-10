@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom' // Assuming you're using React Router for navigation
+import NavbarComponent from '../components/navbar'
 
 const CountryFlags = () => {
   const [countries, setCountries] = useState([])
@@ -13,15 +14,17 @@ const CountryFlags = () => {
 
   return (
     <div>
+      <NavbarComponent />
       {countries.length > 0 && (
         <div
           style={{
+            margin: '5rem',
             display: 'grid',
             gridTemplateColumns: 'repeat(5,1fr)',
-            gap: '10px',
+            gap: '130px',
           }}>
           {countries.map((country, index) => (
-            <div key={index} style={{ textAlign: 'center' }}>
+            <div key={index} style={{ display: 'flex', textAlign: 'left' }}>
               <Link
                 to={`/country/${country.name.common}`} // Assuming you have a route to display country details
                 style={{

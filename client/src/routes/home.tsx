@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import NavbarComponent from '../components/navbar'
 
 function Home() {
   const [data, setData] = useState([])
@@ -12,6 +13,7 @@ function Home() {
 
   return (
     <>
+      <NavbarComponent />
       {data.map(user => (
         <div key={user.id}>
           <p>Name: {user.username}</p>

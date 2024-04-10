@@ -19,6 +19,7 @@ const Pagination = ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
+        margin: '5rem',
       }}>
       <button
         style={{

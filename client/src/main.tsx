@@ -31,11 +31,6 @@ const router = createBrowserRouter([
     element: <CountryFlag />,
     errorElement: <ErrorPage />,
   },
-  {
-    path: '/navbar',
-    element: <NavbarComponent />,
-    errorElement: <ErrorPage />,
-  },
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

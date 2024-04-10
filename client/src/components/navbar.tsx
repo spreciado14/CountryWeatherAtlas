@@ -4,7 +4,7 @@ import { Avatar, CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react'
 
 const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
   root: {
-    base: 'bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-4 border-b border-black',
+    base: 'bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-10 border-b border-black',
     rounded: {
       on: 'rounded',
       off: '',
@@ -55,11 +55,11 @@ export default function NavbarComponent() {
       <Navbar.Brand href="https://flowbite-react.com">
         <img
           src="/favicon.svg"
-          className="mr-3 h-6 sm:h-7"
+          className="h-6 sm:h-7"
           alt="CountryWeatherAtlas"
         />
       </Navbar.Brand>
-      <div className="flex md:order-2">
+      <div className="ml-28 flex md:order-2">
         <Dropdown
           arrowIcon={false}
           inline
@@ -88,7 +88,8 @@ export default function NavbarComponent() {
           Home
         </Navbar.Link>
         <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Donation</Navbar.Link>
+        <Navbar.Link href="#">Single View</Navbar.Link>
+        <Navbar.Link href="#">Full View</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   )

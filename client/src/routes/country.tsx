@@ -1,5 +1,7 @@
 import { useState, useEffect, SetStateAction } from 'react'
 import Pagination from '../components/pagination'
+import NavbarComponent from '../components/navbar'
+import { Link } from 'react-router-dom'
 
 const CountryFlag = () => {
   const [countries, setCountries] = useState([])
@@ -29,6 +31,7 @@ const CountryFlag = () => {
 
   return (
     <div>
+      <NavbarComponent />
       <div>
         <Pagination
           currPage={currentPage}
@@ -42,7 +45,18 @@ const CountryFlag = () => {
           }
         />
       </div>
-      {currentCountries[0]?.name.common}
+
+      <div className="flex flex-1 justify-center">
+        <Link
+          to={`/country/${currentCountries[0]?.name.common}`} // Assuming you have a route to display country details
+          style={{
+            textDecoration: 'underline',
+            color: 'blue',
+            cursor: 'pointer',
+          }}>
+          {currentCountries[0]?.name.common}
+        </Link>
+      </div>
     </div>
   )
 }
