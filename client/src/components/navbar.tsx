@@ -86,20 +86,26 @@ export default function NavbarComponent() {
               name@flowbite.com
             </span>
           </Dropdown.Header>
-          <Dropdown.Item>Profile</Dropdown.Item>
-          <Dropdown.Item>Settings</Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate('/profile')}>
+            Profile
+          </Dropdown.Item>
+          <Dropdown.Item onClick={() => navigate('/settings')}>
+            Settings
+          </Dropdown.Item>
           <Dropdown.Divider />
           <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" active>
+        <Navbar.Link onClick={() => navigate('/')} active>
           Home
         </Navbar.Link>
         <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link href="#">Single View</Navbar.Link>
-        <Navbar.Link href="#">Full View</Navbar.Link>
+        <Navbar.Link onClick={() => navigate('/single')}>
+          Single View
+        </Navbar.Link>
+        <Navbar.Link onClick={() => navigate('/full')}>Full View</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   )
