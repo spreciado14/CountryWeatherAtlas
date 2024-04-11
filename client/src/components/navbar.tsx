@@ -4,7 +4,7 @@ import { Avatar, CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react'
 
 const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
   root: {
-    base: 'bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-10 border-b border-black',
+    base: 'bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-10 border-b',
     rounded: {
       on: 'rounded',
       off: '',
