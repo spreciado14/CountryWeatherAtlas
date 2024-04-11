@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import NavbarComponent from '../components/navbar'
 import { useParams } from 'react-router-dom'
+import NavbarComponent from '../components/navbar'
+import WeatherInfo from '../components/weatherinfo' // Import WeatherInfo component
 
 function CountryDetails() {
   const [countryData, setCountry] = useState(null)
@@ -13,10 +14,11 @@ function CountryDetails() {
       .catch(error => console.error('Error fetching countries:', error))
   }, [])
 
-  console.log(countryData)
   return (
     <>
       <NavbarComponent />
+      <div className="ml-52 mt-5 font-bold ">{country}</div>
+
       <div className="mt-10 ml-20 flex">
         <img src={countryData?.flags.png} alt={countryData?.name.common} />
 
@@ -35,11 +37,13 @@ function CountryDetails() {
             Population: {countryData?.population}
           </div>
           <div className="bg-gray-100 p-5">
-            Timezone:{' '}
-            {countryData &&
-              Object.keys(countryData.timezones).map(key => (
-                <li key={key}>{countryData.timezones[key]}</li>
-              ))}
+            <p>Timezone:</p>
+            <ul>
+              {countryData &&
+                countryData.timezones.map((timezone, index) => (
+                  <li key={index}>{timezone}</li>
+                ))}
+            </ul>
           </div>
           <div className="bg-gray-100 p-5">
             <p>Maps:</p>
@@ -52,6 +56,11 @@ function CountryDetails() {
               </li>
             </ul>
           </div>
+        </div>
+      </div>
+      <div className="flex ml-14 mt-10">
+        <div className="bg-gray-100 p-3">
+          {countryData && <WeatherInfo capitalCity={countryData?.capital} />}
         </div>
       </div>
     </>
