@@ -98,14 +98,16 @@ export default function NavbarComponent() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link onClick={() => navigate('/')} active>
+        <Navbar.Link href="#" onClick={() => navigate('/')} active>
           Home
         </Navbar.Link>
         <Navbar.Link href="#">About</Navbar.Link>
-        <Navbar.Link onClick={() => navigate('/single')}>
+        <Navbar.Link href="#" onClick={() => navigate('/single')}>
           Single View
         </Navbar.Link>
-        <Navbar.Link onClick={() => navigate('/full')}>Full View</Navbar.Link>
+        <Navbar.Link href="#" onClick={() => navigate('/full')}>
+          Full View
+        </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
   )
