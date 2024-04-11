@@ -1,5 +1,4 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
 
@@ -13,14 +12,6 @@ function Login() {
 
     navigate('/')
   }
-
-  useEffect(() => {
-    const token: string = cookies.get('token') as string
-    if (token) {
-      navigate('/')
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   return (
     <div className="flex justify-center items-center h-screen">

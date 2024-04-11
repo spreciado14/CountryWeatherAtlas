@@ -8,13 +8,17 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 import Login from './routes/login'
 import CountryFlags from './routes/countries'
 import CountryFlag from './routes/country'
-import NavbarComponent from './components/navbar'
 import CountryDetails from './routes/countrydetails'
+import { PrivateRoute } from './utils/PrivateRoute'
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Home />,
+    element: (
+      <PrivateRoute>
+        <Home />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
@@ -24,17 +28,29 @@ const router = createBrowserRouter([
   },
   {
     path: '/full',
-    element: <CountryFlags />,
+    element: (
+      <PrivateRoute>
+        <CountryFlags />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: '/single',
-    element: <CountryFlag />,
+    element: (
+      <PrivateRoute>
+        <CountryFlag />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
   },
   {
     path: '/country/:country',
-    element: <CountryDetails />,
+    element: (
+      <PrivateRoute>
+        <CountryDetails />
+      </PrivateRoute>
+    ),
     errorElement: <ErrorPage />,
   },
 ])
