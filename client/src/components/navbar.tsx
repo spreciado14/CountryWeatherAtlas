@@ -1,6 +1,9 @@
 'use client'
 
+import { googleLogout } from '@react-oauth/google'
 import { Avatar, CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react'
+import { useNavigate } from 'react-router-dom'
+import Cookies from 'universal-cookie'
 
 const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
   root: {
@@ -50,6 +53,13 @@ const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
 }
 
 export default function NavbarComponent() {
+  const cookies = new Cookies()
+  const navigate = useNavigate()
+  const handleLogout = () => {
+    cookies.remove('token')
+    googleLogout()
+    navigate('/login')
+  }
   return (
     <Navbar theme={CustomNavbar} fluid rounded>
       <Navbar.Brand href="https://flowbite-react.com">
@@ -79,7 +89,7 @@ export default function NavbarComponent() {
           <Dropdown.Item>Profile</Dropdown.Item>
           <Dropdown.Item>Settings</Dropdown.Item>
           <Dropdown.Divider />
-          <Dropdown.Item>Sign out</Dropdown.Item>
+          <Dropdown.Item onClick={handleLogout}>Sign out</Dropdown.Item>
         </Dropdown>
         <Navbar.Toggle />
       </div>
