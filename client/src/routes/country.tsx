@@ -9,8 +9,6 @@ function CountryFlag() {
   const countriesPerPage = 1
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const totalPages = Math.ceil((countries?.length || 0) / countriesPerPage)
-
   useEffect(() => {
     fetch(`https://restcountries.com/v3.1/all?fields=name,flags`)
       .then(response => response.json())
@@ -50,7 +48,8 @@ function CountryFlag() {
       <div>
         <Pagination
           currPage={currentPage}
-          totalPages={totalPages}
+          totalResults={filteredCountries.length}
+          resultsPerPage={countriesPerPage}
           paginate={paginate}
           countryFlag={
             <img
