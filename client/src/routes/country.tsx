@@ -1,26 +1,31 @@
 import { useState, useEffect, SetStateAction } from 'react'
-import Pagination from '../components/pagination'
+import { Link, useSearchParams } from 'react-router-dom'
 import NavbarComponent from '../components/navbar'
-import { Link } from 'react-router-dom'
+import Pagination from '../components/pagination'
 
-const CountryFlag = () => {
+function CountryFlag() {
   const [countries, setCountries] = useState([])
   const [currentPage, setCurrentPage] = useState(1)
-  const [countriesPerPage] = useState(1)
+  const countriesPerPage = 1
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const totalPages = Math.ceil((countries?.length || 0) / countriesPerPage)
 
   useEffect(() => {
-    fetch('https://studies.cs.helsinki.fi/restcountries/api/all')
+    fetch(`https://restcountries.com/v3.1/all?fields=name,flags`)
       .then(response => response.json())
       .then(data => setCountries(data))
       .catch(error => console.error('Error fetching countries:', error))
-  }, [])
+  }, [searchParams])
+  const searchTerm = searchParams.get('search')
+  const filteredCountries = countries.filter(country =>
+    country?.name.common.toLowerCase().includes(searchTerm?.toLowerCase() || '')
+  )
 
   // Calculate the index range for the current page
   const indexOfLastCountry = currentPage * countriesPerPage
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage
-  const currentCountries = countries.slice(
+  const currentCountries = filteredCountries.slice(
     indexOfFirstCountry,
     indexOfLastCountry
   )
@@ -29,9 +34,19 @@ const CountryFlag = () => {
   const paginate = (pageNumber: SetStateAction<number>) =>
     setCurrentPage(pageNumber)
 
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    event.preventDefault()
+    setSearchParams({ search: event.target.value })
+  }
+
   return (
     <div>
       <NavbarComponent />
+      <input
+        type="text"
+        onChange={handleSearch}
+        placeholder="Search for a country"
+      />
       <div>
         <Pagination
           currPage={currentPage}
