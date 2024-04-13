@@ -6,7 +6,7 @@ const CountryFlags = () => {
   const [countries, setCountries] = useState([])
 
   useEffect(() => {
-    fetch('https://studies.cs.helsinki.fi/restcountries/api/all')
+    fetch(`https://restcountries.com/v3.1/all?fields=name,flags`)
       .then(response => response.json())
       .then(data => setCountries(data))
       .catch(error => console.error('Error fetching countries:', error))
