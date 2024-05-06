@@ -2,6 +2,7 @@ import { useState, useEffect, SetStateAction } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import NavbarComponent from '../components/navbar'
 import Pagination from '../components/pagination'
+import { FooterComponent } from '../components/footer'
 
 function CountryFlag() {
   const [countries, setCountries] = useState([])
@@ -36,41 +37,45 @@ function CountryFlag() {
     event.preventDefault()
     setSearchParams({ search: event.target.value })
   }
-
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <NavbarComponent />
-      <input
-        type="text"
-        onChange={handleSearch}
-        placeholder="Search for a country"
-      />
-      <div>
-        <Pagination
-          currPage={currentPage}
-          totalResults={filteredCountries.length}
-          resultsPerPage={countriesPerPage}
-          paginate={paginate}
-          countryFlag={
-            <img
-              src={currentCountries[0]?.flags.png}
-              alt={currentCountries[0]?.name.common}
-            />
-          }
-        />
-      </div>
-
-      <div className="flex flex-1 justify-center">
-        <Link
-          to={`/country/${currentCountries[0]?.name.common}`} // Assuming you have a route to display country details
-          style={{
-            textDecoration: 'underline',
-            color: 'blue',
-            cursor: 'pointer',
-          }}>
-          {currentCountries[0]?.name.common}
-        </Link>
-      </div>
+      <main className="flex-grow">
+        <div className="flex justify-center mt-10">
+          <input
+            className="rounded-lg p-2 w-1/4 m-2 border-2 border-gray-300 center"
+            type="text"
+            onChange={handleSearch}
+            placeholder="Search"
+          />
+        </div>
+        <div>
+          <Pagination
+            currPage={currentPage}
+            totalResults={filteredCountries.length}
+            resultsPerPage={countriesPerPage}
+            paginate={paginate}
+            countryFlag={
+              <img
+                src={currentCountries[0]?.flags.png}
+                alt={currentCountries[0]?.name.common}
+              />
+            }
+          />
+        </div>
+        <div className="flex flex-1 justify-center">
+          <Link
+            to={`/country/${currentCountries[0]?.name.common}`}
+            style={{
+              textDecoration: 'underline',
+              color: 'blue',
+              cursor: 'pointer',
+            }}>
+            {currentCountries[0]?.name.common}
+          </Link>
+        </div>
+      </main>
+      <FooterComponent />
     </div>
   )
 }

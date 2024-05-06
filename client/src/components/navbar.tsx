@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie'
 
 const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
   root: {
-    base: 'bg-white px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-10 border-b',
+    base: 'bg-gray-100 px-2 py-2.5 dark:border-gray-700 dark:bg-gray-800 sm:px-10 border-b',
     rounded: {
       on: 'rounded',
       off: '',

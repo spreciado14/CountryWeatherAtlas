@@ -15,12 +15,6 @@ function Home() {
   return (
     <>
       <NavbarComponent />
-      {data.map(user => (
-        <div key={user.id}>
-          <p>Name: {user.username}</p>
-          <p>Email: {user.email}</p>
-        </div>
-      ))}
     </>
   )
 }

@@ -12,19 +12,20 @@ function CountryDetails() {
       .then(response => response.json())
       .then(data => setCountry(data))
       .catch(error => console.error('Error fetching countries:', error))
-  }, [])
+  }, [country])
 
   return (
     <>
       <NavbarComponent />
+
       <div className="ml-52 mt-5 font-bold ">{country}</div>
 
       <div className="mt-10 ml-20 flex">
         <img src={countryData?.flags.png} alt={countryData?.name.common} />
 
         <div className="ml-20 flex justify-center">
-          <div className="bg-gray-100 p-5">Capital: {countryData?.capital}</div>
-          <div className="bg-gray-100 p-5 m">
+          <div className="bg-zinc-300 p-5">Capital: {countryData?.capital}</div>
+          <div className="bg-zinc-300 p-5">
             <p>Languages:</p>
             <ul>
               {countryData &&
@@ -33,10 +34,10 @@ function CountryDetails() {
                 ))}
             </ul>
           </div>
-          <div className="bg-gray-100 p-5">
+          <div className="bg-zinc-300 p-5">
             Population: {countryData?.population}
           </div>
-          <div className="bg-gray-100 p-5">
+          <div className="bg-zinc-300 p-5">
             <p>Timezone:</p>
             <ul>
               {countryData &&
@@ -45,7 +46,7 @@ function CountryDetails() {
                 ))}
             </ul>
           </div>
-          <div className="bg-gray-100 p-5">
+          <div className="bg-zinc-300 p-5">
             <p>Maps:</p>
             <ul>
               <li>
@@ -59,7 +60,7 @@ function CountryDetails() {
         </div>
       </div>
       <div className="flex ml-14 mt-10">
-        <div className="bg-gray-100 p-3">
+        <div className="bg-zinc-300 p-3">
           {countryData && <WeatherInfo capitalCity={countryData?.capital} />}
         </div>
       </div>
