@@ -3,3 +3,4 @@ flask-sqlalchemy
 Flask
 requests
 flask-cors
+flask-migrate

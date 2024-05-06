@@ -1,13 +1,11 @@
 from flask import request, jsonify
 from config import app, db
-from models import User
-
+from models import User,Blog
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
     users = User.query.all()
-    json_users = list(map(lambda x: x.to_json(), users))
-    return jsonify({"user": json_users})
+    return jsonify([user.to_json() for user in users])
 
 
 @app.route("/api/create_users", methods=["POST"])
@@ -30,8 +28,26 @@ def create_users():
 
     return jsonify({"message": "User created!"}), 201
 
+@app.route('/api/create_blog', methods=['POST'])
+def create_blog():
+    title = request.json.get('title')
+    url = request.json.get('url')
+    author = request.json.get('author')
+    likes = request.json.get('likes')
+    user_id = request.json.get('user_id')
 
+    if title is None or author is None or likes is None or url is None or user_id is None:
+        return jsonify({'message': 'You must include a title, author, likes, url, and user_id'}), 400
 
+    user = User.query.get(user_id)
+    if not user:
+        return jsonify({'message': 'User not found'}), 404
+
+    new_blog = Blog(title=title, url=url, author=author, likes=likes, user_id=user_id)
+    db.session.add(new_blog)
+    db.session.commit()
+
+    return jsonify({'message': 'Blog created'}), 201
 
 if __name__ == "__main__":
     with app.app_context():
