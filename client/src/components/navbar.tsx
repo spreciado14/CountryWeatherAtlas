@@ -101,12 +101,11 @@ export default function NavbarComponent() {
         <Navbar.Link href="#" onClick={() => navigate('/')} active>
           Home
         </Navbar.Link>
-        <Navbar.Link href="#">About</Navbar.Link>
         <Navbar.Link href="#" onClick={() => navigate('/single')}>
-          Single View
+          Countries
         </Navbar.Link>
-        <Navbar.Link href="#" onClick={() => navigate('/full')}>
-          Full View
+        <Navbar.Link href="#" onClick={() => navigate('/blogs')}>
+          Blogs
         </Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
