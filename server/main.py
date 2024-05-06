@@ -7,28 +7,33 @@ def get_users():
     users = User.query.all()
     return jsonify([user.to_json() for user in users])
 
-
-@app.route("/api/create_users", methods=["POST"])
+@app.route("/api/login", methods=["POST"])
 def create_users():
-    username = request.json.get("username")
+    name = request.json.get("name")
     email = request.json.get("email")
+    picture = request.json.get("picture")
 
-    if not username or not email:
+    if not name or not email or not picture:
         return (
-            jsonify({"message": "You must include a first name, last name and email"}),
+            jsonify({"message": "You must include a name, email, and picture"}),
             400,
         )
 
-    new_contact = User(username=username, email=email)
+    existing_user = User.query.filter_by(email=email).first()
+    if existing_user:
+        return jsonify({"message": "User already exists!"}), 200
+
+    new_user = User(username=name, email=email, profile_pic=picture)
     try:
-        db.session.add(new_contact)
+        db.session.add(new_user)
         db.session.commit()
     except Exception as e:
         return jsonify({"message": str(e)}), 400
 
     return jsonify({"message": "User created!"}), 201
 
-@app.route('/api/create_blog', methods=['POST'])
+
+@app.route('/api/blogs', methods=['POST'])
 def create_blog():
     title = request.json.get('title')
     url = request.json.get('url')
@@ -54,12 +59,12 @@ def get_blogs():
     blogs = Blog.query.all()
     return jsonify([{'title': blog.title, 'url': blog.url, 'author': blog.author, 'likes': blog.likes, 'user': blog.user.to_json()} for blog in blogs])
 
-@app.route("/api/users/<int:user_id>/blogs", methods=["GET"])
-def get_user_blogs(user_id):
-    user = User.query.get(user_id)
-    if not user:
-        return jsonify({'message': 'User not found'}), 404
-    return jsonify([blog.to_json() for blog in user.blogs])
+@app.route("/api/blogs/<int:id>/", methods=["GET"])
+def get_blog(id):
+    blog = Blog.query.get(id)
+    if not blog:
+        return jsonify({'message': 'Blog not found'}), 404
+    return jsonify(blog.to_json())
 
 @app.route("/api/blogs/<int:blog_id>", methods=["DELETE"])
 def delete_blog(blog_id):

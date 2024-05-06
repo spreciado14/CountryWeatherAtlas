@@ -4,6 +4,7 @@ import { googleLogout } from '@react-oauth/google'
 import { Avatar, CustomFlowbiteTheme, Dropdown, Navbar } from 'flowbite-react'
 import { useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie'
+import { useUser } from '../stores/userContext'
 
 const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
   root: {
@@ -60,6 +61,9 @@ export default function NavbarComponent() {
     googleLogout()
     navigate('/login')
   }
+
+  const { name, email, picture } = useUser()
+
   return (
     <Navbar theme={CustomNavbar} fluid rounded>
       <Navbar.Brand href="https://flowbite-react.com">
@@ -73,18 +77,10 @@ export default function NavbarComponent() {
         <Dropdown
           arrowIcon={false}
           inline
-          label={
-            <Avatar
-              alt="User settings"
-              img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-              rounded
-            />
-          }>
+          label={<Avatar alt="User settings" img={picture} rounded />}>
           <Dropdown.Header>
-            <span className="block text-sm">Bonnie Green</span>
-            <span className="block truncate text-sm font-medium">
-              name@flowbite.com
-            </span>
+            <span className="block text-sm">{name}</span>
+            <span className="block truncate text-sm font-medium">{email}</span>
           </Dropdown.Header>
           <Dropdown.Item onClick={() => navigate('/profile')}>
             Profile

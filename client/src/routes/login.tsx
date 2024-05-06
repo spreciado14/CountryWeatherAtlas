@@ -1,15 +1,27 @@
 import { CredentialResponse, GoogleLogin } from '@react-oauth/google'
 import { useNavigate } from 'react-router-dom'
+import { jwtDecode } from 'jwt-decode'
 import Cookies from 'universal-cookie'
+import loginService from '../services/login'
+import { PayloadDecoder } from '../types/types'
+import { useUser } from '../stores/userContext'
 
 function Login() {
+  const { setName, setEmail, setPicture } = useUser()
+
   const navigate = useNavigate()
   const cookies = new Cookies()
-  const handleResponse = (res: CredentialResponse) => {
+  const handleResponse = async (res: CredentialResponse) => {
     cookies.set('token', JSON.stringify(res.credential), {
       maxAge: 3600,
     })
 
+    const jwt = JSON.stringify(res.credential)
+    const decoder = jwtDecode<PayloadDecoder>(jwt) // Returns with the JwtPayload type
+    await loginService.login(decoder)
+    setName(decoder.name)
+    setEmail(decoder.email)
+    setPicture(decoder.picture)
     navigate('/')
   }
 
