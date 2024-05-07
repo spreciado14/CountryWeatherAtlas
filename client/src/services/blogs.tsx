@@ -2,8 +2,8 @@
 import axios from 'axios'
 const baseUrl = '/api/blogs'
 
-const getAll = async () => {
-  const response = await axios.get(baseUrl)
+const getAll = async (page: number = 1) => {
+  const response = await axios.get(`${baseUrl}?page=${page}`)
   return response.data
 }
 
