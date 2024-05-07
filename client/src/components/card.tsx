@@ -22,20 +22,18 @@ const CustomCard: CustomFlowbiteTheme['card'] = {
 }
 
 export function CardComponent({ author, email, url, title }) {
+  const absoluteUrl = `https://${url}`
+
   return (
-    <div className="max-w-xs p-4 bg-white rounded-lg shadow-md">
-      <div className="flex items-center">
-        <div>
-          <h2 className="text-lg font-bold text-gray-900">{author}deafeafea</h2>
-          <p className="text-sm text-gray-500">{email}safde</p>
-        </div>
-      </div>
-      <a
-        href={url}
-        className="text-md text-blue-500 hover:underline block mt-2">
-        {url}link
+    <Card theme={CustomCard} href="#" className="max-w-sm">
+      <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
+        {email}
+      </h5>
+      <p className="font-normal text-gray-500">Author: {author}</p>
+      <p className="text-gray-700 dark:text-gray-400">{title}</p>
+      <a href={absoluteUrl} className="text-blue-500 underline">
+        Visit Blog
       </a>
-      <h3 className="mt-2 text-md font-semibold text-gray-900">{title}title</h3>
-    </div>
+    </Card>
   )
 }
