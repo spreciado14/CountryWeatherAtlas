@@ -55,9 +55,11 @@ const CustomNavbar: CustomFlowbiteTheme['navbar'] = {
 
 export default function NavbarComponent() {
   const cookies = new Cookies()
+
   const navigate = useNavigate()
   const handleLogout = () => {
     cookies.remove('token')
+    cookies.remove('id')
     googleLogout()
     navigate('/login')
   }

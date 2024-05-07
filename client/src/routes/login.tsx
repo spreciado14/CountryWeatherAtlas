@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { jwtDecode } from 'jwt-decode'
 import Cookies from 'universal-cookie'
 import loginService from '../services/login'
-import { PayloadDecoder } from '../types/types'
+import { PayloadDecoder, PayloadUserId } from '../types/types'
 import { useUser } from '../stores/userContext'
 
 function Login() {
@@ -18,7 +18,14 @@ function Login() {
 
     const jwt = JSON.stringify(res.credential)
     const decoder = jwtDecode<PayloadDecoder>(jwt) // Returns with the JwtPayload type
-    await loginService.login(decoder)
+    const id = await loginService.login(decoder)
+
+    // Convert id to a string before decoding
+    const idString = JSON.stringify(id)
+    // Decode the JWT returned by loginService.login
+    const decodedId = jwtDecode<PayloadUserId>(idString)
+    // Store the decoded JWT in cookies
+    cookies.set('id', decodedId, { maxAge: 3600 })
     setName(decoder.name)
     setEmail(decoder.email)
     setPicture(decoder.picture)

@@ -19,7 +19,7 @@ class User(db.Model):
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
+    title = db.Column(db.String(200), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     url = db.Column(db.String(100), nullable=False)
     likes = db.Column(db.Integer, nullable=False, default=0)

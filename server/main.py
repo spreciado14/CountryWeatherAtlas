@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from config import app, db
 from models import User,Blog
+from flask_jwt_extended import create_access_token
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
@@ -19,18 +20,18 @@ def create_users():
             400,
         )
 
-    existing_user = User.query.filter_by(email=email).first()
-    if existing_user:
-        return jsonify({"message": "User already exists!"}), 200
+    user = User.query.filter_by(email=email).first()
+    if not user:
+        user = User(username=name, email=email, profile_pic=picture)
+        try:
+            db.session.add(user)
+            db.session.commit()
+        except Exception as e:
+            return jsonify({"message": str(e)}), 400
 
-    new_user = User(username=name, email=email, profile_pic=picture)
-    try:
-        db.session.add(new_user)
-        db.session.commit()
-    except Exception as e:
-        return jsonify({"message": str(e)}), 400
+    access_token = create_access_token(identity=user.id, additional_claims={"user_id": user.id})
+    return jsonify(access_token=access_token), 200
 
-    return jsonify({"message": "User created!"}), 201
 
 
 @app.route('/api/blogs', methods=['POST'])
@@ -38,17 +39,16 @@ def create_blog():
     title = request.json.get('title')
     url = request.json.get('url')
     author = request.json.get('author')
-    likes = request.json.get('likes')
     user_id = request.json.get('user_id')
 
-    if title is None or author is None or likes is None or url is None or user_id is None:
-        return jsonify({'message': 'You must include a title, author, likes, url, and user_id'}), 400
+    if not title or not author or not url or not user_id:
+        return jsonify({'message': 'You must include a non-empty title, author, url, and user_id'}), 400
 
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
     if not user:
         return jsonify({'message': 'User not found'}), 404
 
-    new_blog = Blog(title=title, url=url, author=author, likes=likes, user_id=user_id)
+    new_blog = Blog(title=title, url=url, author=author, user_id=user_id)
     db.session.add(new_blog)
     db.session.commit()
 
@@ -56,8 +56,17 @@ def create_blog():
 
 @app.route("/api/blogs", methods=["GET"])
 def get_blogs():
-    blogs = Blog.query.all()
-    return jsonify([{'title': blog.title, 'url': blog.url, 'author': blog.author, 'likes': blog.likes, 'user': blog.user.to_json()} for blog in blogs])
+    # Get all users
+    users = User.query.all()
+
+    # Create a list to hold the results
+    results = []
+
+    # For each user, add their information to the results
+    for user in users:
+        results.append(user.to_json())
+
+    return jsonify(results)
 
 @app.route("/api/blogs/<int:id>/", methods=["GET"])
 def get_blog(id):

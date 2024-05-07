@@ -1,21 +1,29 @@
 'use client'
 
-import {
-  Button,
-  Datepicker,
-  Drawer,
-  Label,
-  Textarea,
-  TextInput,
-  theme,
-} from 'flowbite-react'
+import { Button, Drawer, Label, Textarea, TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import { FaPencil } from 'react-icons/fa6'
-import { HiUserAdd } from 'react-icons/hi'
-import { twMerge } from 'tailwind-merge'
+import blogService from '../services/blogs'
+import Cookies from 'universal-cookie'
 
 export function DrawerComponent() {
   const [isOpen, setIsOpen] = useState(false)
+  const cookies = new Cookies()
+  // URL-encoded JSON string
+  // Get the id cookie
+  const idCookie = cookies.get('id')
+
+  const submit = async e => {
+    e.preventDefault()
+    const newBlog = {
+      user_id: idCookie.user_id,
+      author: e.target.author.value,
+      title: e.target.title.value,
+      url: e.target.url.value,
+    }
+    await blogService.create(newBlog)
+    setIsOpen(false)
+  }
 
   const handleClose = () => setIsOpen(false)
 
@@ -27,7 +35,7 @@ export function DrawerComponent() {
       <Drawer open={isOpen} onClose={handleClose}>
         <Drawer.Header title="Create Blog" titleIcon={FaPencil} />
         <Drawer.Items>
-          <form action="#">
+          <form onSubmit={submit}>
             <div className="mb-6 mt-3">
               <Label htmlFor="author" className="mb-2 block">
                 Author
@@ -55,7 +63,9 @@ export function DrawerComponent() {
               </Label>
               <TextInput id="url" name="url" placeholder="Link" />
             </div>
-            <Button className="w-full">Submit</Button>
+            <Button type="submit" className="w-full">
+              Submit
+            </Button>
           </form>
         </Drawer.Items>
       </Drawer>
