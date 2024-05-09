@@ -15,9 +15,7 @@ const router = createBrowserRouter([
   {
     path: '/',
     element: (
-      <PrivateRoute>
-        <Home />
-      </PrivateRoute>
+        <PrivateRoute><Home /></PrivateRoute>
     ),
     errorElement: <ErrorPage />,
   },
@@ -29,27 +27,22 @@ const router = createBrowserRouter([
   {
     path: '/full',
     element: (
-      <PrivateRoute>
-        <CountryFlags />
-      </PrivateRoute>
+      
+        <PrivateRoute><CountryFlags /></PrivateRoute>
     ),
     errorElement: <ErrorPage />,
   },
   {
     path: '/single',
     element: (
-      <PrivateRoute>
-        <CountryFlag />
-      </PrivateRoute>
+        <PrivateRoute><CountryFlag /></PrivateRoute>
     ),
     errorElement: <ErrorPage />,
   },
   {
     path: '/country/:country',
     element: (
-      <PrivateRoute>
-        <CountryDetails />
-      </PrivateRoute>
+        <PrivateRoute><CountryDetails /></PrivateRoute>
     ),
     errorElement: <ErrorPage />,
   },
