@@ -14,11 +14,6 @@ import { UserProvider } from './stores/userContext'
 
 const router = createBrowserRouter([
   {
-    path: '/',
-    element: <Home />,
-    errorElement: <ErrorPage />,
-  },
-  {
     path: '/login',
     element: <Login />,
     errorElement: <ErrorPage />,

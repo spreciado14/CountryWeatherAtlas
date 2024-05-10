@@ -96,9 +96,6 @@ export default function NavbarComponent() {
         <Navbar.Toggle />
       </div>
       <Navbar.Collapse>
-        <Navbar.Link href="#" onClick={() => navigate('/')} active>
-          Home
-        </Navbar.Link>
         <Navbar.Link href="#" onClick={() => navigate('/single')}>
           Countries
         </Navbar.Link>
