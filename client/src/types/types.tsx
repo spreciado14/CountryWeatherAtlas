@@ -11,3 +11,11 @@ export interface PayloadDecoder {
   name: string
   picture: string
 }
+
+export interface Blog {
+  id?: string
+  title?: string
+  author?: string
+  url?: string
+  user_id?: string
+}

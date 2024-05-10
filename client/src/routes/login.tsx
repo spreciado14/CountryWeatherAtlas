@@ -29,7 +29,7 @@ function Login() {
     setName(decoder.name)
     setEmail(decoder.email)
     setPicture(decoder.picture)
-    navigate('/')
+    navigate('/single')
   }
 
   return (

@@ -1,7 +1,8 @@
-
 # test_api.py
 import pytest
 from main import app, db  # Make sure to import the Flask app from 'main' which has routes defined
+from config import app, db
+from models import User
 
 @pytest.fixture(scope='module')
 def test_client():
@@ -33,9 +34,6 @@ def test_get_blogs(test_client):
     assert isinstance(response.json, list)  # Expecting a list of blogs
 
 
-import pytest
-from config import app, db
-from models import User, Blog
 
 @pytest.fixture(scope='module')
 def test_client():
@@ -57,6 +55,7 @@ def test_client():
 
         db.session.remove()
         db.drop_all()
+        
 def test_get_users(test_client):
     """Test that getting users retrieves the hardcoded user."""
     response = test_client.get('/api/users')

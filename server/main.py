@@ -2,6 +2,8 @@ from flask import request, jsonify
 from config import app, db
 from models import User,Blog
 from flask_jwt_extended import create_access_token
+from sqlalchemy.orm import joinedload
+
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
@@ -56,16 +58,10 @@ def create_blog():
 
 @app.route("/api/blogs", methods=["GET"])
 def get_blogs():
-    # Get all users
-    users = User.query.all()
-
-    # Create a list to hold the results
-    results = []
-
-    # For each user, add their information to the results
-    for user in users:
-        results.append(user.to_json())
-
+    page = request.args.get('page', 1, type=int)
+    per_page = 3
+    blogs = Blog.query.order_by(Blog.id).offset((page - 1) * per_page).limit(per_page).all()
+    results = [blog.to_json() for blog in blogs]
     return jsonify(results)
 
 @app.route("/api/blogs/<int:id>/", methods=["GET"])

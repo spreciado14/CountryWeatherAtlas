@@ -7,30 +7,30 @@ class User(db.Model):
     profile_pic = db.Column(db.String(120), nullable=True)
     blogs = db.relationship('Blog', backref='user', lazy='dynamic')
 
-
     def to_json(self):
         return {
             "id": self.id,
             "username": self.username,
             "email": self.email,
             "profile_pic": self.profile_pic,
-            "blogs": [blog.to_json() for blog in self.blogs.all()]
-            }
-
+            "blogs": [blog.id for blog in self.blogs.all()]
+        }
+    
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(200), nullable=False)
     author = db.Column(db.String(100), nullable=False)
     url = db.Column(db.String(100), nullable=False)
     likes = db.Column(db.Integer, nullable=False, default=0)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def to_json(self):
-      return {
-          "id": self.id, 
-          "title": self.title,
-          "user_id": self.user_id,
-          "author": self.author,
-          "url": self.url,
-          "likes": self.likes
-      }
+        return {
+            'id': self.id,
+            'title': self.title,
+            'author': self.author,
+            'url': self.url,
+            'likes': self.likes,
+            'user_id': self.user_id,
+            'user': self.user.to_json() if self.user else None
+        }
